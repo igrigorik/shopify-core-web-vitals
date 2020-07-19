@@ -5,16 +5,11 @@
     <% application_name = ShopifyApp.configuration.application_name %>
     <title><%= application_name %></title>
     <%= stylesheet_link_tag 'application' %>
-    <% if ShopifyApp.use_webpacker? %>
-      <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <% else %>
-      <%= javascript_include_tag 'application', "data-turbolinks-track" => true %>
-    <% end %>
     <%= csrf_meta_tags %>
   </head>
 
   <body>
-    <div class="app-wrapper">
+    <div class="rails-app-wrapper">
       <div class="app-content">
         <main role="main">
           <%= yield %>
@@ -23,9 +18,7 @@
     </div>
 
     <%= render 'layouts/flash_messages' %>
-
     <script src="https://unpkg.com/@shopify/app-bridge"></script>
-
     <%= content_tag(:div, nil, id: 'shopify-app-init', data: {
       api_key: ShopifyApp.configuration.api_key,
       shop_origin: (@current_shopify_session.domain if @current_shopify_session),
@@ -33,9 +26,12 @@
     } ) %>
 
     <% if content_for?(:javascript) %>
-      <div id="ContentForJavascript" data-turbolinks-temporary>
+      <div id="root" data-turbolinks-temporary>
         <%= yield :javascript %>
       </div>
     <% end %>
+
+    <%= javascript_pack_tag 'application' %>
+
   </body>
 </html>

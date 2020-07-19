@@ -66,6 +66,10 @@ GEM
       zeitwerk (~> 2.2, >= 2.2.2)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
+    babel-source (5.8.35)
+    babel-transpiler (0.7.0)
+      babel-source (>= 4.0, < 6)
+      execjs (~> 2.0)
     bindex (0.8.1)
     bootsnap (1.4.6)
       msgpack (~> 1.0)
@@ -82,8 +86,10 @@ GEM
       xpath (~> 3.2)
     childprocess (3.0.0)
     concurrent-ruby (1.1.6)
+    connection_pool (2.2.3)
     crass (1.0.6)
     erubi (1.9.0)
+    execjs (2.7.0)
     faraday (1.0.1)
       multipart-post (>= 1.2, < 3)
     ffi (1.13.1)
@@ -175,6 +181,12 @@ GEM
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
+    react-rails (2.6.1)
+      babel-transpiler (>= 0.7.0)
+      connection_pool
+      execjs
+      railties (>= 3.2)
+      tilt
     redirect_safely (1.0.0)
       activemodel
     regexp_parser (1.7.1)
@@ -192,17 +204,17 @@ GEM
     selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
-    shopify_api (9.1.0)
+    shopify_api (9.2.0)
       activeresource (>= 4.1.0, < 6.0.0)
       graphql-client
       rack
-    shopify_app (13.4.0)
+    shopify_app (13.4.1)
       browser_sniffer (~> 1.2.2)
       jwt (~> 2.2.1)
       omniauth-shopify-oauth2 (~> 2.2.2)
       rails (> 5.2.1)
       redirect_safely (~> 1.0)
-      shopify_api (~> 9.1.0)
+      shopify_api (~> 9.1)
     sprockets (4.0.2)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
@@ -250,6 +262,7 @@ DEPENDENCIES
   pg
   puma (~> 4.1)
   rails (~> 6.0.3, >= 6.0.3.2)
+  react-rails
   sass-rails (>= 6)
   selenium-webdriver
   shopify_app (>= 11.3.0)
