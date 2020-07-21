@@ -15,9 +15,14 @@ import en from "@shopify/polaris/locales/en.json";
 import WebVitals from "./web_vitals";
 import "@shopify/polaris/styles.css";
 
+const root = document.getElementById("root");
+
 ReactDOM.render(
   <AppProvider i18n={en}>
-    <WebVitals />
+    <WebVitals
+      origin={root.dataset.origin}
+      other={JSON.parse(root.dataset.other)}
+    />
   </AppProvider>,
-  document.getElementById("root")
+  root
 );
