@@ -12,7 +12,7 @@ import ReactDOM from "react-dom";
 import { AppProvider } from "@shopify/polaris";
 import en from "@shopify/polaris/locales/en.json";
 
-import WebVitals from "./web_vitals";
+import WebVitals from "./WebVitals";
 import "@shopify/polaris/styles.css";
 
 const root = document.getElementById("root");
@@ -20,8 +20,8 @@ const root = document.getElementById("root");
 ReactDOM.render(
   <AppProvider i18n={en}>
     <WebVitals
-      origin={root.dataset.origin}
-      other={JSON.parse(root.dataset.other)}
+      self={root.dataset.self}
+      benchmark={JSON.parse(root.dataset.benchmark)}
     />
   </AppProvider>,
   root

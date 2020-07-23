@@ -13,3 +13,30 @@
  *= require_tree .
  *= require_self
  */
+
+.stacked_graph {
+    display: flex;
+    color: #414042;
+
+    span {
+        display: inline-block;
+        height: 100%;
+        box-sizing: border-box;
+        padding: 10px;
+    }
+
+    .bar_good {
+        background: #BBE5B3;
+        color: #fff;
+    }
+
+    .bar_ni {
+        background: #FFC58B;
+        color: #000;
+    }
+
+    .bar_poor {
+        background: #FEAD9A;
+        color: #fff;
+    }
+}

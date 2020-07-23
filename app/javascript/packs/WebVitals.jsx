@@ -1,6 +1,6 @@
 import React from "react";
 import About from "./About";
-import Vital from "./Vital";
+import CoreVital from "./CoreVital";
 
 import {
   Layout,
@@ -12,13 +12,51 @@ import {
   Stack,
 } from "@shopify/polaris";
 
+const API_KEY = "AIzaSyDhSWG0ZzIbgxRsokw129YdjfQ8Kuxas4I";
+
 export default class WebVitals extends React.Component {
   constructor(props) {
     super(props);
     console.log(props);
     this.state = {
-      sites: null,
+      error: null,
+      isLoaded: false,
+      data: [],
     };
+  }
+
+  componentDidMount() {
+    console.log(JSON.stringify({ origin: this.props.self }));
+    fetch(
+      "https://chromeuxreport.googleapis.com/v1/records:queryRecord?key=" +
+        API_KEY,
+      {
+        method: "post",
+        body: JSON.stringify({ origin: this.props.self }),
+      }
+    )
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          console.log(result);
+          this.setState({
+            isLoaded: true,
+            data: [
+              // temporarily massage this to single response
+              {
+                origin: result.record.key.origin,
+                metrics: result.record.metrics,
+              },
+            ],
+          });
+        },
+        (error) => {
+          this.setState({
+            isLoaded: true,
+            error,
+          });
+        }
+      );
   }
 
   render() {
@@ -28,6 +66,8 @@ export default class WebVitals extends React.Component {
           <Layout.Section>
             <About />
           </Layout.Section>
+
+          {/* Render LCP */}
           <Layout.AnnotatedSection
             title="Largest Contentful Paint (LCP)"
             description={
@@ -44,13 +84,15 @@ export default class WebVitals extends React.Component {
               </TextContainer>
             }
           >
-            <Vital origin={this.props.origin} other={this.props.other} />
+            <CoreVital metric={"largest_contentful_paint"} state={this.state} />
           </Layout.AnnotatedSection>
+
+          {/* Render FID */}
           <Layout.AnnotatedSection
             title="First Input Delay (FID)"
             description={
               <TextContainer>
-                <p>Tracks ...</p>
+                <p>Tracks ... [TODO]</p>
                 <Subheading>
                   <Link url="https://web.dev/fid" external={true}>
                     web.dev/fid
@@ -59,13 +101,15 @@ export default class WebVitals extends React.Component {
               </TextContainer>
             }
           >
-            <Vital origin={this.props.origin} other={this.props.other} />
+            <CoreVital metric={"first_input_delay"} state={this.state} />
           </Layout.AnnotatedSection>
+
+          {/* Render CLS */}
           <Layout.AnnotatedSection
             title="Cumulative Layout Shift (CLS)"
             description={
               <TextContainer>
-                <p>Tracks ...</p>
+                <p>Tracks ... [TODO]</p>
                 <Subheading>
                   <Link url="https://web.dev/cls" external={true}>
                     web.dev/cls
@@ -74,7 +118,7 @@ export default class WebVitals extends React.Component {
               </TextContainer>
             }
           >
-            <Vital origin={this.props.origin} other={this.props.other} />
+            <CoreVital metric={"cumulative_layout_shift"} state={this.state} />
           </Layout.AnnotatedSection>
 
           <Layout.Section>
