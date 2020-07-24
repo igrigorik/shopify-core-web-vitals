@@ -20,23 +20,41 @@
 
     span {
         display: inline-block;
-        height: 100%;
         box-sizing: border-box;
         padding: 10px;
-    }
-
-    .bar_good {
-        background: #BBE5B3;
-        color: #fff;
-    }
-
-    .bar_ni {
-        background: #FFC58B;
         color: #000;
     }
 
+    .bar_good {
+        background: #0CCE6B
+    }
+
+    .bar_ni {
+        background: #FFA400;
+    }
+
     .bar_poor {
-        background: #FEAD9A;
-        color: #fff;
+        background: #FF4E42;
+    }
+}
+
+.Polaris-Card__Section--subdued {
+    .stacked_graph {
+        span {
+            opacity: 75%;
+            padding: 5px;
+        }
+
+        .bar_good {
+            background: #BBE5B3;
+        }
+
+        .bar_ni {
+            background: #FFC58B;
+        }
+
+        .bar_poor {
+            background: #FEAD9A;
+        }
     }
 }

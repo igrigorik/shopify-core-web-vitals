@@ -32,15 +32,16 @@ function status(metric, value) {
 }
 
 function VitalHeader(props) {
+  const { origin, metric, p75 } = props;
   return (
     <Stack>
       <Stack.Item fill>
-        <Subheading>{props.origin}</Subheading>
+        <Subheading>{origin}</Subheading>
       </Stack.Item>
       <Stack.Item>
-        <Badge status={status(props.metric, props.p75)}>
-          {props.p75}
-          {props.metric != "cumulative_layout_shift" && "ms"} @ P75
+        <Badge status={status(metric, p75)}>
+          {p75}
+          {metric != "cumulative_layout_shift" && "ms"} @ P75
         </Badge>
       </Stack.Item>
     </Stack>
@@ -48,15 +49,16 @@ function VitalHeader(props) {
 }
 
 function VitalGraph(props) {
-  const classNames = ["bar_good", "bar_ni", "bar_poor"];
+  const { data, metric } = props,
+    classNames = ["bar_good", "bar_ni", "bar_poor"];
   return (
     <div className={"stacked_graph"}>
-      {props.data.map((value, i) => {
+      {data.map((value, i) => {
         return (
           <span
             style={{ flexGrow: Math.round(value.density * 100) }}
             className={classNames[i]}
-            key={props.metric + classNames[i]}
+            key={metric + classNames[i]}
           >
             {Math.round(value.density * 100)}%
           </span>
@@ -66,37 +68,55 @@ function VitalGraph(props) {
   );
 }
 
+function CoreVitalCard(props) {
+  const { metric, origin, data, subdued } = props;
+  return (
+    <Card.Section
+      title={
+        <VitalHeader
+          metric={metric}
+          origin={origin}
+          p75={data.percentiles.p75}
+        />
+      }
+      subdued={subdued}
+    >
+      <VitalGraph metric={metric} data={data.histogram} />
+    </Card.Section>
+  );
+}
+
 function CoreVital(props) {
-  const { error, isLoaded, data } = props.state;
+  const { loading, self, cruxData } = props.state;
   const metric = props.metric;
 
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  } else if (!isLoaded) {
+  if (loading) {
+    // TODO
     return <div>Loading...</div>;
   } else {
+    let selfResp = cruxData.find((resp) => resp.origin === self),
+      benchmarkResp = cruxData.filter((resp) => resp.origin != self);
+
     return (
       <Card sectioned>
-        <Card.Section
-          title={
-            <VitalHeader
+        <CoreVitalCard
+          metric={metric}
+          origin={self}
+          data={selfResp.resp.record.metrics[metric]}
+          subdued={false}
+          key={metric + "-" + self}
+        />
+        {benchmarkResp.map((b) => {
+          return (
+            <CoreVitalCard
               metric={metric}
-              origin={data[0].origin}
-              p75={data[0]["metrics"][metric]["percentiles"]["p75"]}
+              origin={b.origin}
+              data={b.resp.record.metrics[metric]}
+              subdued={true}
+              key={metric + "-" + b.origin}
             />
-          }
-        >
-          <VitalGraph
-            metric={metric}
-            data={data[0]["metrics"][metric]["histogram"]}
-          />
-        </Card.Section>
-        {/* TODO */}
-        {/* {props.sites.other.map((item) => (
-          <Card.Section title={item} subdued={true} key={item}>
-            [TODO]
-          </Card.Section>
-        ))} */}
+          );
+        })}
       </Card>
     );
   }

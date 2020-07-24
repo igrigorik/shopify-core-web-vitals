@@ -17,46 +17,59 @@ const API_KEY = "AIzaSyDhSWG0ZzIbgxRsokw129YdjfQ8Kuxas4I";
 export default class WebVitals extends React.Component {
   constructor(props) {
     super(props);
-    console.log(props);
-    this.state = {
-      error: null,
-      isLoaded: false,
-      data: [],
-    };
+    this.state = Object.assign(
+      {
+        loading: true,
+        cruxData: [],
+      },
+      props
+    );
   }
 
-  componentDidMount() {
-    console.log(JSON.stringify({ origin: this.props.self }));
-    fetch(
-      "https://chromeuxreport.googleapis.com/v1/records:queryRecord?key=" +
-        API_KEY,
-      {
-        method: "post",
-        body: JSON.stringify({ origin: this.props.self }),
-      }
-    )
-      .then((res) => res.json())
-      .then(
-        (result) => {
-          console.log(result);
-          this.setState({
-            isLoaded: true,
-            data: [
-              // temporarily massage this to single response
-              {
-                origin: result.record.key.origin,
-                metrics: result.record.metrics,
-              },
-            ],
+  fetchData(origins) {
+    Promise.all(
+      origins.map((origin) => {
+        return fetch(
+          "https://chromeuxreport.googleapis.com/v1/records:queryRecord?key=" +
+            API_KEY,
+          {
+            method: "post",
+            body: JSON.stringify({ origin: origin }),
+          }
+        )
+          .then((response) => {
+            return response.json().then((resp) => ({
+              status: response.status,
+              origin: origin,
+              resp,
+            }));
+          })
+          .catch((error) => {
+            return {
+              status: 0,
+              error,
+              origin,
+            };
           });
+      })
+    ).then((cruxData) => {
+      this.setState(
+        {
+          loading: false,
+          cruxData,
         },
         (error) => {
           this.setState({
-            isLoaded: true,
+            loading: false,
             error,
           });
         }
       );
+    });
+  }
+
+  componentDidMount() {
+    this.fetchData([].concat(this.props.self).concat(this.props.benchmark));
   }
 
   render() {
