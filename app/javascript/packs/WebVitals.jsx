@@ -12,6 +12,7 @@ import {
   Stack,
 } from "@shopify/polaris";
 
+// note: key is restricted by whitelisted referrer
 const API_KEY = "AIzaSyDhSWG0ZzIbgxRsokw129YdjfQ8Kuxas4I";
 
 export default class WebVitals extends React.Component {
@@ -86,9 +87,13 @@ export default class WebVitals extends React.Component {
             description={
               <TextContainer>
                 <p>
-                  Tracks the render time of the largest content element (image
-                  or text) visible to the user when the page is loading.
+                  Render time of the largest image or text block when the page
+                  is navigated to by the user. To provide a good user
+                  experience, LCP should occur{" "}
+                  <span className="threshold">within 2500 milliseconds</span> of
+                  when the page first starts loading.
                 </p>
+
                 <Subheading>
                   <Link url="https://web.dev/lcp" external={true}>
                     web.dev/lcp
@@ -105,7 +110,12 @@ export default class WebVitals extends React.Component {
             title="First Input Delay (FID)"
             description={
               <TextContainer>
-                <p>Tracks ... [TODO]</p>
+                <p>
+                  Response time when a user first interacts with the page - e.g.
+                  click a link, tap on a button. To provide a good user
+                  experience, pages should have a FID of{" "}
+                  <span className="threshold">less than 100 milliseconds</span>.
+                </p>
                 <Subheading>
                   <Link url="https://web.dev/fid" external={true}>
                     web.dev/fid
@@ -122,7 +132,12 @@ export default class WebVitals extends React.Component {
             title="Cumulative Layout Shift (CLS)"
             description={
               <TextContainer>
-                <p>Tracks ... [TODO]</p>
+                <p>
+                  Measures visual stability and presence of unexpected layout
+                  shifts of page content. To provide a good user experience,
+                  pages should maintain a CLS of{" "}
+                  <span className="threshold">less than 0.1</span>.
+                </p>
                 <Subheading>
                   <Link url="https://web.dev/cls" external={true}>
                     web.dev/cls
