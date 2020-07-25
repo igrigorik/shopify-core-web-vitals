@@ -1,5 +1,5 @@
 import React from "react";
-import { Badge, Card, Stack, Subheading } from "@shopify/polaris";
+import { Badge, Card, Stack, Subheading, Tooltip } from "@shopify/polaris";
 
 function status(metric, value) {
   var label = "critical";
@@ -32,17 +32,25 @@ function status(metric, value) {
 }
 
 function VitalHeader(props) {
-  const { origin, metric, p75 } = props;
+  const { origin, metric, p75 } = props,
+    metricName = metric
+      .replace(/_/g, " ")
+      .replace(/\b\w/g, (c) => c.toUpperCase());
   return (
     <Stack>
       <Stack.Item fill>
         <Subheading>{origin}</Subheading>
       </Stack.Item>
       <Stack.Item>
-        <Badge status={status(metric, p75)}>
-          {p75}
-          {metric != "cumulative_layout_shift" && "ms"} @ P75
-        </Badge>
+        <Tooltip
+          content={`75% of user experiences see ${metricName} of less than ${p75}`}
+          preferredPosition={"above"}
+        >
+          <Badge status={status(metric, p75)}>
+            {p75}
+            {metric != "cumulative_layout_shift" && "ms"} @ P75
+          </Badge>
+        </Tooltip>
       </Stack.Item>
     </Stack>
   );
@@ -50,18 +58,26 @@ function VitalHeader(props) {
 
 function VitalGraph(props) {
   const { data, metric } = props,
-    classNames = ["bar_good", "bar_ni", "bar_poor"];
+    classNames = ["good", "ni", "poor"];
+
   return (
     <div className={"stacked_graph"}>
       {data.map((value, i) => {
+        let density = Math.round(value.density * 100);
         return (
-          <span
-            style={{ flexGrow: Math.round(value.density * 100) }}
-            className={classNames[i]}
+          <div
+            style={{ flexGrow: density }}
+            className={"bar_" + classNames[i]}
             key={metric + classNames[i]}
           >
-            {Math.round(value.density * 100)}%
-          </span>
+            <Tooltip
+              content={`${density}% of user experiences are ${classNames[
+                i
+              ].toLocaleUpperCase()}`}
+            >
+              <span>{density}%</span>
+            </Tooltip>
+          </div>
         );
       })}
     </div>
