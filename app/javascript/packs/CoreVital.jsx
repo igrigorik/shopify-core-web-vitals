@@ -1,5 +1,12 @@
 import React from "react";
-import { Badge, Card, Stack, Subheading, Tooltip } from "@shopify/polaris";
+import {
+  Badge,
+  Card,
+  Stack,
+  Subheading,
+  TextStyle,
+  Tooltip,
+} from "@shopify/polaris";
 
 function status(metric, value) {
   var label = "critical";
@@ -86,18 +93,29 @@ function VitalGraph(props) {
 
 function CoreVitalCard(props) {
   const { metric, origin, data, subdued } = props;
+  if (data.status != 200) {
+    return (
+      <Card.Section title={<Subheading>{origin}</Subheading>} subdued={subdued}>
+        <TextStyle variation="subdued">
+          Chrome UX Report does not currently have enough data for this origin.
+        </TextStyle>
+      </Card.Section>
+    );
+  }
+
+  const rum = data.resp.record.metrics[metric];
   return (
     <Card.Section
       title={
         <VitalHeader
           metric={metric}
           origin={origin}
-          p75={data.percentiles.p75}
+          p75={rum.percentiles.p75}
         />
       }
       subdued={subdued}
     >
-      <VitalGraph metric={metric} data={data.histogram} />
+      <VitalGraph metric={metric} data={rum.histogram} />
     </Card.Section>
   );
 }
@@ -118,7 +136,7 @@ function CoreVital(props) {
         <CoreVitalCard
           metric={metric}
           origin={self}
-          data={selfResp.resp.record.metrics[metric]}
+          data={selfResp}
           subdued={false}
           key={metric + "-" + self}
         />
@@ -127,7 +145,7 @@ function CoreVital(props) {
             <CoreVitalCard
               metric={metric}
               origin={b.origin}
-              data={b.resp.record.metrics[metric]}
+              data={b}
               subdued={true}
               key={metric + "-" + b.origin}
             />
