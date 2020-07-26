@@ -25,8 +25,9 @@
     } ) %>
 
     <%= content_tag(:div, nil, id: 'root', data: {
-      # self: ("https://" + @current_shopify_session.domain if @current_shopify_session),
-      self: "https://www.allbirds.com/",
+      self: Rails.env.development? ?
+        (ENV["SHOPORIGIN"] || "https://www.allbirds.com/" ) :
+        ("https://" + @current_shopify_session.domain if @current_shopify_session),
       benchmark: ["https://www.amazon.com/", "https://www.target.com/"]
     } ) %>
 
