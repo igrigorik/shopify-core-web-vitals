@@ -26,11 +26,13 @@ export default class WebVitals extends React.Component {
       props
     );
 
-    this.updateBenchmark = this.updateBenchmark.bind(this);
+    this.addBenchmark = this.addBenchmark.bind(this);
+    this.removeBenchmark = this.removeBenchmark.bind(this);
+    this.fetchData = this.fetchData.bind(this);
   }
 
-  fetchData(origins) {
-    Promise.all(
+  fetchData(origins, cb) {
+    return Promise.all(
       origins.map((origin) => {
         return fetch(
           "https://chromeuxreport.googleapis.com/v1/records:queryRecord?key=" +
@@ -55,6 +57,28 @@ export default class WebVitals extends React.Component {
             };
           });
       })
+    );
+  }
+
+  removeBenchmark(origin) {
+    let benchmark = this.state.benchmark.filter((r) => r != origin);
+    let cruxData = this.state.cruxData.filter((r) => r.origin != origin);
+    this.setState({
+      benchmark,
+      cruxData,
+    });
+  }
+
+  addBenchmark(origin, data) {
+    this.setState({
+      benchmark: this.state.benchmark.concat([origin]),
+      cruxData: this.state.cruxData.concat(data),
+    });
+  }
+
+  componentDidMount() {
+    this.fetchData(
+      [].concat(this.props.self).concat(this.props.benchmark)
     ).then((cruxData) => {
       this.setState(
         {
@@ -69,25 +93,6 @@ export default class WebVitals extends React.Component {
         }
       );
     });
-  }
-
-  updateBenchmark(origin, e) {
-    console.log("updateBenchmark ", origin);
-    let benchmark = this.state.benchmark.filter((r) => r != origin);
-    let cruxData = this.state.cruxData.filter((r) => r.origin != origin);
-    this.setState({
-      benchmark,
-      cruxData,
-    });
-  }
-
-  componentDidMount() {
-    this.fetchData([].concat(this.props.self).concat(this.props.benchmark));
-  }
-
-  componentDidUpdate(prevState, prevProps) {
-    // TODO: rerun fetch if there are new origins
-    console.log("componentDidUpdate: ", this.state);
   }
 
   render() {
@@ -109,7 +114,9 @@ export default class WebVitals extends React.Component {
           <Layout.Section>
             <Header
               benchmark={this.state.benchmark}
-              onChange={this.updateBenchmark}
+              addBenchmark={this.addBenchmark}
+              removeBenchmark={this.removeBenchmark}
+              fetchData={this.fetchData}
             />
           </Layout.Section>
 
