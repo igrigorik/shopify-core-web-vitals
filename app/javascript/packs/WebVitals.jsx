@@ -1,5 +1,5 @@
 import React from "react";
-import About from "./About";
+import Header from "./Header";
 import CoreVital from "./CoreVital";
 
 import {
@@ -25,6 +25,8 @@ export default class WebVitals extends React.Component {
       },
       props
     );
+
+    this.updateBenchmark = this.updateBenchmark.bind(this);
   }
 
   fetchData(origins) {
@@ -69,16 +71,46 @@ export default class WebVitals extends React.Component {
     });
   }
 
+  updateBenchmark(origin, e) {
+    console.log("updateBenchmark ", origin);
+    let benchmark = this.state.benchmark.filter((r) => r != origin);
+    let cruxData = this.state.cruxData.filter((r) => r.origin != origin);
+    this.setState({
+      benchmark,
+      cruxData,
+    });
+  }
+
   componentDidMount() {
     this.fetchData([].concat(this.props.self).concat(this.props.benchmark));
+  }
+
+  componentDidUpdate(prevState, prevProps) {
+    // TODO: rerun fetch if there are new origins
+    console.log("componentDidUpdate: ", this.state);
   }
 
   render() {
     return (
       <Page forceRender={false} titleHidden={false} fullWidth={true}>
         <Layout>
+          <Layout.Section secondary>
+            <img
+              alt="Web Vitals"
+              width="100%"
+              style={{
+                objectFit: "cover",
+                objectPosition: "center top",
+              }}
+              src="https://webdev.imgix.net/vitals/web-vitals.svg"
+            />
+          </Layout.Section>
+
           <Layout.Section>
-            <About />
+            <Header
+              benchmark={this.state.benchmark}
+              onChange={this.updateBenchmark}
+            />
           </Layout.Section>
 
           {/* Render LCP */}
