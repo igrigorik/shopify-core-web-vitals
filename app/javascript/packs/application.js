@@ -12,7 +12,7 @@ import ReactDOM from "react-dom";
 import { AppProvider } from "@shopify/polaris";
 import en from "@shopify/polaris/locales/en.json";
 
-import WebVitals from "./WebVitals";
+import WebVitals from "../components/WebVitals";
 import "@shopify/polaris/styles.css";
 
 const root = document.getElementById("root");
