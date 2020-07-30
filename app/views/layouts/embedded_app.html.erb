@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <% application_name = ShopifyApp.configuration.application_name %>
     <title><%= application_name %></title>
-    <%= stylesheet_link_tag 'application' %>
+    <%= stylesheet_link_tag "application" %>
     <%= csrf_meta_tags %>
   </head>
 
@@ -18,20 +18,20 @@
     </div>
 
     <script src="https://unpkg.com/@shopify/app-bridge"></script>
-    <%= content_tag(:div, nil, id: 'shopify-app-init', data: {
-      api_key: ShopifyApp.configuration.api_key,
-      shop_origin: (@current_shopify_session.domain if @current_shopify_session),
-      debug: Rails.env.development?
-    } ) %>
+    <%= content_tag(:div, nil, id: "shopify-app-init", data: {
+                                 api_key: ShopifyApp.configuration.api_key,
+                                 shop_origin: (@current_shopify_session.domain if @current_shopify_session),
+                                 debug: Rails.env.development?,
+                               }) %>
 
-    <%= content_tag(:div, nil, id: 'root', data: {
-      self: Rails.env.development? ?
-        (ENV["SHOPORIGIN"] || "https://www.allbirds.com/" ) :
-        ("https://" + @current_shopify_session.domain if @current_shopify_session),
-      benchmark: ["https://www.amazon.com/", "https://www.target.com/"]
-    } ) %>
+    <%= content_tag(:div, nil, id: "root", data: {
+                                 self: Rails.env.development? ?
+                                   (ENV["SHOPORIGIN"] || "https://www.allbirds.com/") :
+                                   ("https://" + @current_shopify_session.domain if @current_shopify_session),
+                                 benchmark: @competitors,
+                               }) %>
 
-    <%= javascript_pack_tag 'application' %>
+    <%= javascript_pack_tag "application" %>
 
   </body>
 </html>

@@ -31,7 +31,7 @@ export default class WebVitals extends React.Component {
     this.fetchData = this.fetchData.bind(this);
   }
 
-  fetchData(origins, cb) {
+  fetchData(origins) {
     return Promise.all(
       origins.map((origin) => {
         return fetch(
@@ -60,6 +60,19 @@ export default class WebVitals extends React.Component {
     );
   }
 
+  persistCompetitorUpdate(action, origin) {
+    fetch("/competitors.json", {
+      method: action,
+      body: JSON.stringify({ origin: origin }),
+      headers: {
+        "X-CSRF-Token": CSRF_token,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((resp) => resp.json())
+      .then((data) => console.log(data));
+  }
+
   removeBenchmark(origin) {
     let benchmark = this.state.benchmark.filter((r) => r != origin);
     let cruxData = this.state.cruxData.filter((r) => r.origin != origin);
@@ -67,6 +80,7 @@ export default class WebVitals extends React.Component {
       benchmark,
       cruxData,
     });
+    this.persistCompetitorUpdate("delete", origin);
   }
 
   addBenchmark(origin, data) {
@@ -74,6 +88,7 @@ export default class WebVitals extends React.Component {
       benchmark: this.state.benchmark.concat([origin]),
       cruxData: this.state.cruxData.concat(data),
     });
+    this.persistCompetitorUpdate("post", origin);
   }
 
   componentDidMount() {

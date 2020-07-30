@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   root :to => 'home#index'
   mount ShopifyApp::Engine, at: '/'
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
+  get    '/competitors', to: 'competitors#show'
+  post   '/competitors', to: 'competitors#create'
+  delete '/competitors', to: 'competitors#destroy'
 end

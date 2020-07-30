@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 class Shop < ActiveRecord::Base
   include ShopifyApp::ShopSessionStorage
+  has_many :competitors, :dependent => :delete_all
 
   def api_version
     ShopifyApp.configuration.api_version
