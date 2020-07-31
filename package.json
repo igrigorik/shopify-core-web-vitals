@@ -2,17 +2,20 @@
   "name": "vitals",
   "private": true,
   "dependencies": {
+    "@babel/core": "^7.11.0",
     "@babel/preset-react": "^7.10.4",
     "@rails/actioncable": "^6.0.0",
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.0.0",
     "@rails/webpacker": "4.2.2",
     "@shopify/polaris": "^4.27.0",
+    "babel-loader": "^8.1.0",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "turbolinks": "^5.2.0"
+    "turbolinks": "^5.2.0",
+    "webpack": "^4.44.1"
   },
   "version": "0.1.0",
   "devDependencies": {
