@@ -1,24 +1,26 @@
-# README
+# Core Web Vitals (app) for Shopify
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Optimizing quality of user experience is critical to the success of every storefront. [Core Web Vitals](https://blog.chromium.org/2020/05/introducing-web-vitals-essential-metrics.html) are a set of metrics and thresholds that capture the core user experience needs of fast loading experience, interactivity, and visual stability. Core Web Vitals are part of the upcoming [page experience signal](https://webmasters.googleblog.com/2020/05/evaluating-page-experience.html) for Google Search, are widely available across popular Google web developer tools, and can be tracked by every site owner both [in development and in production](https://web.dev/vitals-tools/).
 
-Things you may want to cover:
+**This embedded app provides a report on how real-world Google Chrome users experience the Shopify-powered storefront, as captured by the [Chrome UX Report](https://developers.google.com/web/tools/chrome-user-experience-report), and enables the site owner to benchmark their site against a custom list of competitors.**
 
-* Ruby version
+[![CWV for Shopify preview](storage/cwv-shopify-preview.jpg)](storage/cwv-shopify-preview.jpg)
 
-* System dependencies
+### Development
 
-* Configuration
+1. Install [Shopify CLI](https://shopify.github.io/shopify-app-cli/)
+1. Install PostgreSQL
+1. Bootstrap Rails environment:
 
-* Database creation
+   - `ruby-2.6.6` and `bundler` gem
+   - `nodejs` and `webpacker` gem
+   - `bundle install`
+   - `rails db:prepare`
 
-* Database initialization
+1. Launch the Rails app via `shopify serve`, optionally pass ENV variable to override the store origin for testing & development, e.g...
+   `SHOPORIGIN='https://www.allbirds.com' shopify serve`
+1. Navigate to the tunnel URL and install the dev app on your Shopify store
 
-* How to run the test suite
+### Contributing
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Have suggestions on how to improve the report, or a feature you'd like to nominate? Head to [Issues](/issues) and start the conversation.

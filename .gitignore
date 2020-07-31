@@ -26,6 +26,7 @@
 # Ignore uploaded files in development.
 /storage/*
 !/storage/.keep
+!/storage/cwv-shopify-preview.jpg
 
 /public/assets
 .byebug_history
