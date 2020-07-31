@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class HomeController < AuthenticatedController
-  DEFAULT_COMPETITORS = ["https://www.heinz.com"]
+  DEFAULT_COMPETITORS = ["https://www.amazon.com"]
 
   def index
     # @products = ShopifyAPI::Product.find(:all, params: { limit: 10 })
