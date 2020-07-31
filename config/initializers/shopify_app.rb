@@ -3,8 +3,9 @@ ShopifyApp.configure do |config|
   config.api_key = ENV['SHOPIFY_API_KEY']
   config.secret = ENV['SHOPIFY_API_SECRET']
   config.old_secret = ""
-  config.scope = "" # in theory, we don't need any scopes at all..
-                    # https://help.shopify.com/en/api/getting-started/authentication/oauth/scopes
+  # In theory, we don't need any scopes at all for this app, but Shopify complains on empty list..
+  # https://help.shopify.com/en/api/getting-started/authentication/oauth/scopes
+  config.scope = "read_content, read_products"
   config.embedded_app = true
   config.after_authenticate_job = false
   config.api_version = "2020-07"
