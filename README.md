@@ -6,6 +6,9 @@ Optimizing quality of user experience is critical to the success of every storef
 
 [![CWV for Shopify preview](storage/cwv-shopify-preview.jpg)](storage/cwv-shopify-preview.jpg)
 
+Take it for a spin on your own **development** store: https://shopify-core-web-vitals.herokuapp.com/login 
+
+
 ### Development
 
 1. Install [Shopify CLI](https://shopify.github.io/shopify-app-cli/)
