@@ -39,7 +39,7 @@
   div {
     display: inline-block;
     box-sizing: border-box;
-    padding: 10px;
+    padding: 10px 0;
     color: #000;
   }
 
@@ -60,7 +60,7 @@
   font-size: 1.1rem;
 }
 
-.Polaris-Card__Section {
+.Polaris-Layout__AnnotationContent {
   font-size: 1.2rem;
 
   .Polaris-Subheading {
@@ -96,7 +96,7 @@
   .stacked_graph {
     div {
       opacity: 0.75;
-      padding: 2px 10px;
+      padding: 2px 0;
       font-size: 85%;
     }
 

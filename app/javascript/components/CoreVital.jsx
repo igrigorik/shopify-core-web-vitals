@@ -112,7 +112,9 @@ function VitalGraph(props) {
             <Tooltip
               content={`${density}% of user experiences ${metricResult[metric][i]}`}
             >
-              <span className="density">{density}%</span>
+              <span className="density">
+                {density > 10 && `\u00A0\u00A0${density}%`}
+              </span>
             </Tooltip>
           </div>
         );
