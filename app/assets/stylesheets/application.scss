@@ -15,61 +15,70 @@
  */
 
 .threshold {
-    color: green;
-    font-weight: bolder;
+  color: green;
+  font-weight: bolder;
 }
 
 .stacked_graph {
-    display: flex;
-    color: #414042;
+  display: flex;
+  color: #414042;
 
-    div {
-        display: inline-block;
-        box-sizing: border-box;
-        padding: 10px;
-        color: #000;
-    }
+  span.p75 {
+    position: relative;
+    right: calc(-75% + 1rem);
+    z-index: 3;
+    border-left-style: dashed;
+    border-color: #1d235f52;
+    border-width: thin;
+  }
 
-    .bar_good {
-        background: #0CCE6B
-    }
+  div {
+    display: inline-block;
+    box-sizing: border-box;
+    padding: 10px;
+    color: #000;
+  }
 
-    .bar_ni {
-        background: #FFA400;
-    }
+  .bar_good {
+    background: #0cce6b;
+  }
 
-    .bar_poor {
-        background: #FF4E42;
-    }
+  .bar_ni {
+    background: #ffa400;
+  }
+
+  .bar_poor {
+    background: #ff4e42;
+  }
 }
 
 .Polaris-Card__Section--subdued {
-    .Polaris-Subheading {
-        font-size: 1rem;
-        padding-top: 0.5rem;
+  .Polaris-Subheading {
+    font-size: 1rem;
+    padding-top: 0.5rem;
+  }
+
+  .Polaris-Badge {
+    font-size: 1.1rem;
+  }
+
+  .stacked_graph {
+    div {
+      opacity: 0.75;
+      padding: 2px 10px;
+      font-size: 85%;
     }
 
-    .Polaris-Badge {
-        font-size: 1.1rem;
+    .bar_good {
+      background: #bbe5b3;
     }
 
-    .stacked_graph {
-        div {
-            opacity: 0.75;
-            padding: 2px 10px;
-            font-size: 85%;
-        }
-
-        .bar_good {
-            background: #BBE5B3;
-        }
-
-        .bar_ni {
-            background: #FFC58B;
-        }
-
-        .bar_poor {
-            background: #FEAD9A;
-        }
+    .bar_ni {
+      background: #ffa400;
     }
+
+    .bar_poor {
+      background: #ff4e42;
+    }
+  }
 }

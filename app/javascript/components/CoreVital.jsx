@@ -68,7 +68,8 @@ function VitalGraph(props) {
     classNames = ["good", "ni", "poor"];
 
   return (
-    <div className={"stacked_graph"}>
+    <div className="stacked_graph">
+      <span className="p75"></span>
       {data.map((value, i) => {
         let density = Math.round(value.density * 100);
         return (
