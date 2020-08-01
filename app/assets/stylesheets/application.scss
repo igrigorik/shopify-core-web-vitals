@@ -56,14 +56,41 @@
   }
 }
 
+.Polaris-Badge {
+  font-size: 1.1rem;
+}
+
+.Polaris-Card__Section {
+  font-size: 1.2rem;
+
+  .Polaris-Subheading {
+    font-size: 1.2rem;
+    padding-top: 0.5rem;
+  }
+
+  span.p75::after {
+    content: "P75";
+    font-size: 0.5rem;
+    position: absolute;
+    top: 3.75rem;
+    right: -0.75rem;
+    opacity: 0.75;
+  }
+}
+
 .Polaris-Card__Section--subdued {
   .Polaris-Subheading {
     font-size: 1rem;
     padding-top: 0.5rem;
   }
 
-  .Polaris-Badge {
-    font-size: 1.1rem;
+  span.p75::after {
+    content: "P75";
+    font-size: 0.5rem;
+    position: absolute;
+    top: 2.2rem;
+    right: -0.75rem;
+    opacity: 0.75;
   }
 
   .stacked_graph {
