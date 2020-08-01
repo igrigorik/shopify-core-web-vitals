@@ -83,7 +83,7 @@ function VitalGraph(props) {
                 i
               ].toLocaleUpperCase()}`}
             >
-              <span>{density}%</span>
+              <span className="density">{density}%</span>
             </Tooltip>
           </div>
         );
