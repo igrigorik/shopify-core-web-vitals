@@ -23,7 +23,7 @@ function interpret_cwv(metric, p75) {
       if (p75 <= 2500) {
         result.badge = "success";
         result.p75_tip = `This site meets Web Vitals recommendation for LCP:
-                          75% of user experiences have LCP of <2500ms;`;
+                          75% of user experiences have LCP of <2500ms`;
       } else if (p75 > 2500 && p75 <= 4000) {
         result.badge = "warning";
       }
@@ -34,7 +34,7 @@ function interpret_cwv(metric, p75) {
       if (p75 <= 100) {
         result.badge = "success";
         result.p75_tip = `This site meets Web Vitals recommendation for FID:
-        75% of user experiences have LCP of <100ms;`;
+        75% of user experiences have LCP of <100ms`;
       } else if (p75 > 100 && p75 <= 300) {
         result.badge = "warning";
       }
@@ -45,7 +45,7 @@ function interpret_cwv(metric, p75) {
       if (p75 <= 0.1) {
         result.badge = "success";
         result.p75_tip = `This site meets Web Vitals recommendation for CLS:
-                          75% of user experiences have CLS of <0.1;`;
+                          75% of user experiences have CLS of <0.1`;
       } else if (p75 > 0.1 && p75 <= 0.25) {
         result.badge = "warning";
       }
