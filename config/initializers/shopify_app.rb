@@ -1,5 +1,5 @@
 ShopifyApp.configure do |config|
-  config.application_name = "Web Vitals Dashboard"
+  config.application_name = "Core Web Vitals Dashboard"
   config.api_key = ENV["SHOPIFY_API_KEY"]
   config.secret = ENV["SHOPIFY_API_SECRET"]
   config.old_secret = ""
@@ -11,7 +11,7 @@ ShopifyApp.configure do |config|
   config.api_version = "2020-07"
   config.shop_session_repository = "Shop"
   config.webhooks = [
-    {topic: "shop/redact", address: "https://shopify-core-web-vitals.herokuapp.com/webhooks/shop_redact", format: "json"}
+    {topic: "shop/redact", address: "https://core-web-vitals-dashboard.herokuapp.com/webhooks/shop_redact", format: "json"}
   ]
 end
 
