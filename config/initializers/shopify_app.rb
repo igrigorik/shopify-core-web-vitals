@@ -11,7 +11,7 @@ ShopifyApp.configure do |config|
   config.api_version = "2020-07"
   config.shop_session_repository = "Shop"
   config.webhooks = [
-    {topic: "shop/redact", address: "https://core-web-vitals-dashboard.herokuapp.com/webhooks/shop_redact", format: "json"}
+    {topic: "app/uninstalled", address: "https://core-web-vitals-dashboard.heroku.com/webhooks/app_uninstalled", format: "json"}
   ]
 end
 
