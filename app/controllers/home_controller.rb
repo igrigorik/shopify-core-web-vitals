@@ -10,7 +10,7 @@ class HomeController < AuthenticatedController
     # Shopify will invalidate the granted keys.
     @scopes = ShopifyAPI::AccessScope.find(:all)
 
-    @shop = Shop.find_by(shopify_domain: @current_shopify_session.domain)
+    @shop = Shop.find_by(shopify_domain: helpers.get_primary_shop_domain)
     @competitors = @shop.competitors.pluck(:origin)
     @competitors = DEFAULT_COMPETITORS if @competitors.empty?
   end

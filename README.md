@@ -6,8 +6,7 @@ Optimizing quality of user experience is critical to the success of every storef
 
 [![CWV for Shopify preview](storage/cwv-shopify-preview.jpg)](storage/cwv-shopify-preview.jpg)
 
-Take it for a spin on your own **development** store: https://core-web-vitals-dashboard.herokuapp.com/login 
-
+Take it for a spin on your own **development** store: https://core-web-vitals-dashboard.herokuapp.com/login
 
 ### Development
 
@@ -23,6 +22,12 @@ Take it for a spin on your own **development** store: https://core-web-vitals-da
 1. Launch the Rails app via `shopify serve`, optionally pass ENV variable to override the store origin for testing & development, e.g...
    `SHOPORIGIN='https://www.allbirds.com' shopify serve`
 1. Navigate to the tunnel URL and install the dev app on your Shopify store
+
+### Updating GraphQL API version
+
+1. Get token from `@current_shopify_session.domain`
+1. Run the update via
+   `rake shopify_api:graphql:dump API_VERSION=XXXX-XX SHOP_DOMAIN=<DOMAIN> ACCESS_TOKEN=<TOKEN>`
 
 ### Contributing
 
